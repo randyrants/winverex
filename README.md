@@ -1,5 +1,3 @@
-# UNDER CONSTRUCTION
-
 ## Project Description
 WinVerEx is command prompt utility that returns a "fully qualified" version of Windows 10.
 
@@ -17,4 +15,5 @@ Click the Releases button in the header above or go to https://github.com/randyr
 * Type winverex
 
 ## Hope for GitHub contributions:
+* Create an MSI or MSIX installer? (for a 4KB ZIP package it feels icky)
 * Continued support for new .NET Frameworks
