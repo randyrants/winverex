@@ -10,6 +10,7 @@ Over the different versions of Windows 10, I couldn't seem to find a way to grab
 Click the Releases button in the header above or go to https://github.com/randyrants/winverex/releases directly
 
 ## How do I use it?
+* Make sure you have the .NET Framework v4.6 installed
 * Download the ZIP file
 * Put the EXE anywhere you want
 * Open a Command Prompt window
