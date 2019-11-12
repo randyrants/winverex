@@ -9,10 +9,13 @@ namespace WinVerEx
         {
             // All of the data we're looking for lives under the same Registry Key
             RegistryKey currentVersion = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion");
-
-            // Grab the core of the version number but since minor version is always 1 here, pick up the real minor version from the UBR value
+            
+            // Grab the reported installed build of the OS, before updates
             String buildLabEx = currentVersion.GetValue("BuildLabEx").ToString();
-            Console.WriteLine("Current version: " + buildLabEx.Replace(".1.", String.Format(".{0}.", currentVersion.GetValue("UBR").ToString())));
+            Console.WriteLine("Installed image: " + buildLabEx);
+
+            // Grab the newest installed version and minor number
+            Console.WriteLine("Updated to: " + String.Format("{0}.{1}", currentVersion.GetValue("CurrentBuild").ToString(), currentVersion.GetValue("UBR").ToString()));
 
             // Grab the product name, as this includes "SKU" information
             Console.WriteLine("Product name: " + currentVersion.GetValue("ProductName"));
@@ -23,7 +26,7 @@ namespace WinVerEx
             // Grab the installation type as well
             Console.WriteLine("Installation type: " + currentVersion.GetValue("InstallationType"));
             currentVersion.Close();
-            
+
             if (args.Length > 0)
             {
                 Console.WriteLine();
