@@ -29,6 +29,20 @@ namespace WinVerEx
 
             if (args.Length > 0)
             {
+                // Display a one off format if i or inline is passed in
+                switch (args[0]) {
+                    case "i":
+                    case "inline":
+                        // Write out a streamlined version number
+                        string[] versionParts = buildLabEx.Split('.');
+                        if (versionParts.Length == 5)
+                        {
+                            Console.WriteLine(String.Format("{0} {1}.{2}.{3} {4}", versionParts[3], versionParts[0], versionParts[1], versionParts[4], versionParts[2]));
+                        }
+                        break;
+                }
+
+                // Output message no matter what extra information came in
                 Console.WriteLine();
                 Console.WriteLine("Visit http://www.github.com/randyrants/winverex for more information or source code.");
             }
