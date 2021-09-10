@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Management;
 using Microsoft.Win32;
 
 namespace WinVerEx
@@ -9,13 +8,7 @@ namespace WinVerEx
         static void Main(string[] args)
         {
             // Get the friendly name of Windows
-            String queriedOSName = String.Empty;
-            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
-            foreach (ManagementObject managementObject in managementObjectSearcher.Get())
-            {
-                queriedOSName = managementObject["Caption"].ToString();
-                break;
-            }
+            String queriedOSName = System.Environment.OSVersion.Platform.ToString();
             
             // All of the data we're looking for lives under the same Registry Key
             RegistryKey currentVersion = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion");
