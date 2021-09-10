@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Management;
 using Microsoft.Win32;
 
 namespace WinVerEx
@@ -8,15 +7,6 @@ namespace WinVerEx
     {
         static void Main(string[] args)
         {
-            // Get the friendly name of Windows
-            String queriedOSName = String.Empty;
-            ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("SELECT Caption FROM Win32_OperatingSystem");
-            foreach (ManagementObject managementObject in managementObjectSearcher.Get())
-            {
-                queriedOSName = managementObject["Caption"].ToString();
-                break;
-            }
-            
             // All of the data we're looking for lives under the same Registry Key
             RegistryKey currentVersion = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion");
             
@@ -27,16 +17,8 @@ namespace WinVerEx
             // Grab the newest installed version and minor number
             Console.WriteLine("Updated to: " + String.Format("{0}.{1}", currentVersion.GetValue("CurrentBuild").ToString(), currentVersion.GetValue("UBR").ToString()));
 
-            // Grab the product name, as this includes "SKU" information with a conflict going to the queried name
-            String productName = currentVersion.GetValue("ProductName").ToString();
-            if (queriedOSName != productName)
-            {
-                Console.WriteLine("Product name: " + queriedOSName);
-            }
-            else
-            {
-                Console.WriteLine("Product name: " + productName);
-            }
+            // Grab the product name, as this includes "SKU" information
+            Console.WriteLine("Product name: " + currentVersion.GetValue("ProductName"));
 
             // This is a deeper dive on what "SKU" you're running
             Console.WriteLine("Edition ID: " + currentVersion.GetValue("EditionID"));
